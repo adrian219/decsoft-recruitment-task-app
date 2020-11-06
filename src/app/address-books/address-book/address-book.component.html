@@ -1,0 +1,45 @@
+<div class="form-page">
+  <form class="input-form" #form="ngForm" (ngSubmit)="onSubmit(form)">
+    <mat-form-field class="form-field" appearance="outline" hideRequiredMarker>
+      <mat-label>Imię</mat-label>
+      <input matInput #firstName="ngModel" [(ngModel)]="model.firstName" name="firstName" required />
+      <mat-error *ngIf="firstName.errors?.required">Uzupełnij imię!</mat-error>
+    </mat-form-field>
+    <mat-form-field class="form-field" appearance="outline" hideRequiredMarker>
+      <mat-label>Nazwisko</mat-label>
+      <input matInput #lastName="ngModel" [(ngModel)]="model.lastName" name="lastName" required />
+      <mat-error *ngIf="lastName.errors?.required">Uzupełnij nazwisko!</mat-error>
+    </mat-form-field>
+    <mat-form-field class="form-field" appearance="outline" hideRequiredMarker>
+      <mat-label>Email</mat-label>
+      <input matInput #email="ngModel" [(ngModel)]="model.email" name="email" required email />
+      <mat-error *ngIf="email.errors?.required">Uzupełnij nazwisko!</mat-error>
+      <mat-error *ngIf="email.errors?.email">Nieprawidłowy adres email!</mat-error>
+    </mat-form-field>
+    <div>
+      <button mat-flat-button (click)="onAddPhone()">Dodaj numer telefonu</button>
+      <div *ngFor="let phone of model.phones; let i = index">
+        <mat-form-field appearance="fill" hideRequiredMarker class="phone-type-mat-form-field">
+          <mat-label>Typ telefonu</mat-label>
+          <mat-select [(ngModel)]="phone.phoneType" name="phoneType_{{i}}" required>
+            <mat-option value="HOME">Domowy</mat-option>
+            <mat-option value="WORK">Służbowy</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="form-field, phone-number-mat-form-field" appearance="outline" hideRequiredMarker>
+          <mat-label>Numer</mat-label>
+          <input matInput #numberPhone="ngModel" [(ngModel)]="phone.number" name="numberPhone_{{i}}" required pattern="^[0-9]*$" />
+          <mat-error *ngIf="numberPhone.errors?.pattern">Wprowadzaj tylko liczby!</mat-error>
+        </mat-form-field>
+        <mat-icon class="cursor-pointer" (click)="onDeletePhone(phone)">delete</mat-icon>
+      </div>
+    </div>
+    <div class="picture-label">Zdjęcie</div>
+    <button mat-flat-button (click)="onDeletePhotoClick()" *ngIf="oldPhoto">Usuń zdjęcie</button>
+    <img [src]="photoUrl | secure | async" alt="" *ngIf="oldPhoto" />
+    <img [src]="previewUrl" alt="" *ngIf="!oldPhoto" />
+    <input class="ng-hide photo-input" id="input-file-id" type="file" (change)="selectFile($event)" />
+    <button mat-flat-button [disabled]="form.invalid" color="primary">Zapisz</button>
+    <button mat-flat-button (click)="onBackClick()">Wróć</button>
+  </form>
+</div>

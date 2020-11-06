@@ -1,0 +1,40 @@
+img {
+  width: 300px;
+  margin: 20px auto;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.input-form {
+  display: inline-grid;
+  width: 100%;
+}
+
+.form-page {
+  padding: 30px;
+}
+
+.photo-input {
+  height: 30px;
+  margin: 10px 0px;
+}
+
+.phone-number-mat-form-field {
+  width: calc(100vw - 50% - 100px);
+  margin-top: 30px;
+  margin-right: 10px;
+  margin-bottom: 30px;
+}
+
+.phone-type-mat-form-field {
+  width: calc(100vw - 50% - 100px);
+  margin: 10px 0px;
+  margin-right: 30px;
+}
+
+.picture-label {
+  margin-top: 10px;
+  font-weight: 400;
+}

@@ -1,0 +1,56 @@
+<div class="add-button-row">
+  <button mat-flat-button (click)="onAddClick()">Dodaj nowy wpis</button>
+</div>
+<div class="example-container mat-elevation-z8">
+  <div class="example-loading-shade"
+       *ngIf="isLoadingResults || isRateLimitReached">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+    <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
+      Wystąpił problem z załadowaniem danych, odśwież stronę i spróbuj jeszcze raz!
+    </div>
+  </div>
+
+  <div class="example-table-container">
+    <table mat-table [dataSource]="data" class="example-table">
+      <ng-container matColumnDef="firstName">
+        <th mat-header-cell *matHeaderCellDef>Imię</th>
+        <td mat-cell *matCellDef="let row">{{row.firstName}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="lastName">
+        <th mat-header-cell *matHeaderCellDef>Nazwisko</th>
+        <td mat-cell *matCellDef="let row">{{row.lastName}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef>Email</th>
+        <td mat-cell *matCellDef="let row">{{row.email}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="homeNumber">
+        <th mat-header-cell *matHeaderCellDef>Numer telefonu domowy</th>
+        <td mat-cell *matCellDef="let row">{{getHomePhoneNumber(row)}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="workNumber">
+        <th mat-header-cell *matHeaderCellDef>Numer telefonu służbowy</th>
+        <td mat-cell *matCellDef="let row">{{getWorkPhoneNumber(row)}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="edit">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let row"><mat-icon class="icon-pointer" (click)="onEditClick(row.id)">edit</mat-icon></td>
+      </ng-container>
+
+      <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let row"><mat-icon class="icon-pointer" (click)="onDeleteClick(row.id)">delete</mat-icon></td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+
+  <mat-paginator [length]="resultsLength" [pageSize]="30"></mat-paginator>
+</div>
