@@ -7,6 +7,7 @@ import {AddressBookDto} from '../../model/address-book.dto';
 import {AddressBookService} from './address-book.service';
 import {Router} from '@angular/router';
 import {PhoneTypeEnum} from '../../model/phone-type.enum';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
   selector: 'app-address-books',
@@ -15,7 +16,7 @@ import {PhoneTypeEnum} from '../../model/phone-type.enum';
 })
 export class AddressBooksComponent implements AfterViewInit {
   displayedColumns: string[] = ['firstName', 'lastName', 'email', 'homeNumber', 'workNumber', 'edit', 'delete'];
-  data: AddressBookDto[] = [];
+  dataSource: MatTableDataSource<AddressBookDto>;
 
   resultsLength = 0;
   isLoadingResults = true;
@@ -28,6 +29,15 @@ export class AddressBooksComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.loadData();
+  }
+
+  applyFilter(event: Event): void {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   private loadData(): void {
@@ -51,7 +61,7 @@ export class AddressBooksComponent implements AfterViewInit {
           this.isRateLimitReached = true;
           return observableOf([]);
         })
-      ).subscribe(data => this.data = data);
+      ).subscribe(data => this.dataSource = new MatTableDataSource(data));
   }
 
   onAddClick(): void {
