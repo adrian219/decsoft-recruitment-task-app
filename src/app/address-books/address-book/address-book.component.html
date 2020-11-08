@@ -38,7 +38,7 @@
     <button mat-flat-button (click)="onDeletePhotoClick()" *ngIf="oldPhoto">Usuń zdjęcie</button>
     <img [src]="photoUrl | secure | async" alt="" *ngIf="oldPhoto" />
     <img [src]="previewUrl" alt="" *ngIf="!oldPhoto" />
-    <input class="ng-hide photo-input" id="input-file-id" type="file" (change)="selectFile($event)" />
+    <input class="ng-hide photo-input" id="input-file-id" type="file" accept="image/png, image/jpeg" (change)="selectFile($event)" />
     <button mat-flat-button [disabled]="form.invalid" color="primary">Zapisz</button>
     <button mat-flat-button (click)="onBackClick()">Wróć</button>
   </form>

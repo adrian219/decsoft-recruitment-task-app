@@ -51,3 +51,9 @@ table {
 .icon-pointer {
   cursor: pointer;
 }
+
+.search-form-field {
+  width: calc(100% - 40px);
+  font-size: 15px;
+  padding: 0px 20px;
+}

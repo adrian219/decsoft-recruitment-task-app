@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AddressBookService} from '../address-book.service';
 import {NgForm} from '@angular/forms';
-import {PhoneTypeEnum} from '../../../model/phone-type.enum';
 import {environment} from '../../../environments/environment';
 
 @Component({
